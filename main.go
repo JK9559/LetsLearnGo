@@ -6,5 +6,6 @@ import (
 )
 
 func main() {
+	valTest()
 	fmt.Println("Hello World!")
 }
