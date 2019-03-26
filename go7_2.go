@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+
+	"github.com/bitly/go-simplejson"
 )
 
 type Sv struct {
@@ -97,6 +99,33 @@ func testSomething() {
 	os.Stdout.Write(b)
 }
 
+func wtf() {
+	js, _ := simplejson.NewJson([]byte(`{
+    "test": {
+        "array": [1, "2", 3],
+        "int": 10,
+        "float": 5.150,
+        "bignum": 9223372036854775807,
+        "string": "simplejson",
+        "bool": true
+        }
+    }`))
+
+	arr, _ := js.Get("test").Get("array").Array()
+	i, _ := js.Get("test").Get("int").Int()
+	fl, _ := js.Get("test").Get("float").Float64()
+	bign, _ := js.Get("test").Get("bignum").Uint64()
+	ms := js.Get("test").Get("string").MustString()
+	bl, _ := js.Get("test").Get("bool").Bool()
+
+	fmt.Println(arr)
+	fmt.Println(i)
+	fmt.Println(fl)
+	fmt.Println(bign)
+	fmt.Println(ms)
+	fmt.Println(bl)
+}
+
 func go7_2() {
-	testSomething()
+	wtf()
 }
